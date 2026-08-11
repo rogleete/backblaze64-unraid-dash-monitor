@@ -9,7 +9,7 @@ Auto-refreshing, collapsible to a one-line summary, with color-coded
 progress bars. A dedicated settings page lets you choose which fields
 appear and how they're arranged across the tile's two columns.
 
-<img width="751" height="121" alt="dashcollapsed" src="https://github.com/user-attachments/assets/fc8a4f67-6929-4de6-83b9-13fa0a107099" />
+<img width="450" height="73" alt="dashcollapsed" src="https://github.com/user-attachments/assets/fc8a4f67-6929-4de6-83b9-13fa0a107099" />
 
 <img width="374" height="148" alt="dash" src="https://github.com/user-attachments/assets/5dea4255-6951-4da2-a283-a51fe0dff743" />
 
