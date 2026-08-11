@@ -23,6 +23,11 @@ Requires a Backblaze64 container reachable from this Unraid server.
 Configure the address, port, and security settings.
 Settings -> Utilities -> Backblaze64 Monitor after installing.
 
+<img width="826" height="459" alt="settings1" src="https://github.com/user-attachments/assets/cb7add5c-ae18-4d59-aa45-aba16f0c0b7a" />
+<img width="826" height="601" alt="settings2" src="https://github.com/user-attachments/assets/4f991b6f-8211-44ca-8eb4-cded850c088a" />
+<img width="823" height="508" alt="settings3" src="https://github.com/user-attachments/assets/77cb8930-2862-44b4-a03c-9839c6f51e84" />
+
+
 
 Downloads:  
 ![GitHub all releases](https://img.shields.io/github/downloads/rogleete/backblaze64-unraid-dash-monitor/total)
