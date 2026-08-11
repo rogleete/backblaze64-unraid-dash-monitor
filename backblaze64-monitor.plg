@@ -1,0 +1,130 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name        "backblaze64-monitor">
+<!ENTITY author      "rogman">
+<!ENTITY version     "2026.08.11">
+<!ENTITY launch      "Utilities/backblaze64-monitor">
+<!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
+<!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
+<!ENTITY packageVER  "&version;">
+<!ENTITY packageName "backblaze64-monitor-&packageVER;">
+<!ENTITY packageFile "&packageName;.txz">
+<!ENTITY packageURL  "https://github.com/&github;/releases/download/&version;/&packageFile;">
+<!ENTITY pluginLOC   "/boot/config/plugins/&name;">
+<!ENTITY emhttpLOC   "/usr/local/emhttp/plugins/&name;">
+]>
+
+<!--
+Backblaze64 Monitor: an Unraid dashboard tile for the upload monitor built
+into the Backblaze64 container (iamfoz/backblaze-64-personal-wine-container).
+This plugin does not gather any data itself; it polls the container's own
+/monitor/api/status endpoint, which nginx proxies on the same port as the
+container's Web UI, and shows a chosen subset of fields as a native Unraid
+dashboard tile.
+
+Requires a Backblaze64 container reachable from this Unraid server.
+Configure the address, port, and (if Web Authentication is enabled in the
+container) username and password under
+Settings -> Utilities -> Backblaze64 Monitor after installing.
+-->
+
+<PLUGIN  name="&name;"
+         Title="Backblaze64 Monitor"
+         author="&author;"
+         version="&version;"
+         launch="&launch;"
+         pluginURL="&pluginURL;"
+         icon="cloud-upload"
+         min="6.9.0"
+         project="https://github.com/&github;"
+         readme="https://github.com/&github;#readme"
+>
+
+<DESCRIPTION>
+Dashboard tile for the Backblaze64 container's built-in upload monitor. Shows live upload speed, backup progress, memory usage, and connection latency on your Unraid Dashboard, with a drag-and-drop settings page to choose which fields appear and where.
+</DESCRIPTION>
+
+<CHANGES>
+### &version;
+- Initial release
+</CHANGES>
+
+<!--
+===========================================
+PRE-INSTALL
+===========================================
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+# Remove old package versions, keep only the one being installed
+rm -f $(ls &pluginLOC;/&name;*.txz 2>/dev/null | grep -v '&packageVER;')
+mkdir -p &pluginLOC;
+</INLINE>
+</FILE>
+
+<!--
+===========================================
+PACKAGE INSTALLATION
+===========================================
+-->
+<FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
+<URL>&packageURL;</URL>
+<SHA256>c7574152683317505aa8efdb008987d4b35efab6318ac69480c877ea2752d45a</SHA256>
+</FILE>
+
+<!--
+===========================================
+POST-INSTALL
+===========================================
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+echo ""
+echo "----------------------------------------------------"
+echo " Backblaze64 Monitor has been installed."
+echo " Version: &version;"
+echo ""
+echo " Next step: go to Settings -> Utilities -> Backblaze64 Monitor"
+echo " and enter your Backblaze64 container's address and port"
+echo " (the same one used by its Web UI), then check the Dashboard page."
+echo "----------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+<!--
+===========================================
+UPDATE
+===========================================
+-->
+<FILE Run="/bin/bash" Method="update">
+<INLINE>
+rm -rf &emhttpLOC;
+</INLINE>
+</FILE>
+
+<!--
+===========================================
+REMOVE
+===========================================
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+removepkg &packageName; 2>/dev/null
+
+# Keep the user's saved settings (server address, credentials, toggles) on
+# the flash drive in case they reinstall later. Uncomment to wipe them too:
+# rm -rf &pluginLOC;
+
+echo ""
+echo "----------------------------------------------------"
+echo " Backblaze64 Monitor has been removed."
+echo " Your settings were kept at &pluginLOC; in case you"
+echo " reinstall -- delete that folder manually if you"
+echo " don't want them kept."
+echo "----------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+</PLUGIN>
