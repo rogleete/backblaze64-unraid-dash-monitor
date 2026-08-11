@@ -19,7 +19,7 @@ This plugin does not gather any data itself; it polls the container's own
 container's Web UI, and shows a chosen subset of fields as a native Unraid
 dashboard tile.
 
-Requires a Backblaze64 container reachable from this Unraid server.
+Requires a Backblaze64 container reachable from the Unraid server.
 Configure the address, port, and security settings.
 Settings -> Utilities -> Backblaze64 Monitor after installing.
 
