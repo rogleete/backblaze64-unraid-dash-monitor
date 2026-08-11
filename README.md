@@ -1,6 +1,14 @@
 **Backblaze64 Monitor:** an Unraid dashboard tile for the upload monitor built
 into the Backblaze64 container (iamfoz/backblaze-64-personal-wine-container).
 
+Adds a native Unraid Dashboard tile displaying upload speed, backup progress,
+memory usage, active threads, and connection latency without needing to open 
+a separate browser tab.
+
+Auto-refreshing, collapsible to a one-line summary, with color-coded
+progress bars. A dedicated settings page lets you choose which fields
+appear and how they're arranged across the tile's two columns.
+
 This plugin does not gather any data itself; it polls the container's own
 /monitor/api/status endpoint, which nginx proxies on the same port as the
 container's Web UI, and shows a chosen subset of fields as a native Unraid
