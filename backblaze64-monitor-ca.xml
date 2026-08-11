@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Plugin>
+  <Name>Backblaze64 Monitor</Name>
+  <PluginURL>https://raw.githubusercontent.com/rogleete/backblaze64-unraid-dash-monitor/main/backblaze64-monitor.plg</PluginURL>
+  <Project>https://github.com/rogleete/backblaze64-unraid-dash-monitor</Project>
+  <Overview>Dashboard tile for Backblaze64's built-in upload monitor -- live speed, backup progress, and more, right on your Unraid Dashboard.</Overview>
+  <Description>Adds a native Unraid Dashboard tile for the live upload monitor built into the Backblaze64 container (Backblaze Personal Backup running under Wine). Shows upload speed, backup progress, memory usage, active threads, and connection latency without needing to open a separate browser tab.
+
+Auto-refreshing, collapsible to a one-line summary, with color-coded progress bars. A dedicated settings page lets you choose which fields appear and how they're arranged across the tile's two columns.
+
+Requires a running Backblaze64 container reachable from the server.
+  </Description>
+  <Category>Tools:Utilities</Category>
+</Plugin>
