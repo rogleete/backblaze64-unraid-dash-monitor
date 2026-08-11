@@ -1,12 +1,12 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/rogleete/backblaze64-unraid-dash-monitor/total)
 <h1><b>Backblaze64 Monitor:</h1></b> 
 An Unraid dashboard tile for the upload monitor built
-into the Backblaze64 container (<a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">iamfoz/backblaze-64-personal-wine-container</a>).
+into the Backblaze64 container (<a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">iamfoz/backblaze-64-personal-wine-container</a>).<br><br>
 
 Adds a native Unraid Dashboard tile displaying upload speed, backup progress,
 memory usage, active threads, and connection latency without needing to open 
-a separate browser tab.
-
+a separate browser tab.<br>
+<br>
 Auto-refreshing, collapsible to a one-line summary, with color-coded
 progress bars. A dedicated settings page lets you choose which fields
 appear and how they're arranged across the tile's two columns.
@@ -15,7 +15,7 @@ appear and how they're arranged across the tile's two columns.
 
 <img width="374" height="148" alt="dash" src="https://github.com/user-attachments/assets/5dea4255-6951-4da2-a283-a51fe0dff743" />
 
-
+<br><br>
 This plugin does not gather any data itself; it polls the container's own
 /monitor/api/status endpoint, which nginx proxies on the same port as the
 container's Web UI, and shows a chosen subset of fields as a native Unraid
