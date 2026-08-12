@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.13">
+<!ENTITY version     "2026.08.14">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -46,6 +46,13 @@ Dashboard tile for the Backblaze64 container's built-in upload monitor. Shows li
 
 <CHANGES>
 ### &version;
+- Fixed the live preview being unreadable (dark card background with
+  black text, and a white-on-white "Live Preview" label) -- the preview
+  markup sat outside the settings form's own theme-aware styling scope,
+  so it always used dark-mode colors regardless of the actual Unraid
+  theme, and its text color never got set to match
+
+### 2026.08.13
 - Added a "Collapsed Tile Data" section on the Item Sorting tab: choose
   which of State, Upload Rate, Files Remaining, and Backup ETA appear on
   the tile's collapsed summary line, and drag to set their order
@@ -93,7 +100,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>28d9f620463619c02c54ecc3d7a9e39fab08c950227c231e4904b50b246496da</SHA256>
+<SHA256>15abef1a508e37c8c56483ee0c7bf20f2004a9be1217eb4b568e04b4e66317a7</SHA256>
 </FILE>
 
 <!--
