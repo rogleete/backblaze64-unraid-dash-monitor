@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.14">
+<!ENTITY version     "2026.08.15">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -15,16 +15,14 @@
 ]>
 
 <!--
-Backblaze64 Monitor: an Unraid dashboard tile for the upload monitor built
-into the Backblaze64 container (iamfoz/backblaze-64-personal-wine-container).
-This plugin does not gather any data itself; it polls the container's own
-/monitor/api/status endpoint, which nginx proxies on the same port as the
-container's Web UI, and shows a chosen subset of fields as a native Unraid
-dashboard tile.
+Backblaze64 Monitor: an Unraid dashboard tile for Backblaze64
+(iamfoz/backblaze-64-personal-wine-container). Polls the container's
+key-authenticated /api/v1/status endpoint and shows a chosen subset of
+fields as a native Unraid dashboard tile.
 
-Requires a Backblaze64 container reachable from this Unraid server.
-Configure the address, port, and (if Web Authentication is enabled in the
-container) username and password under
+Requires a Backblaze64 container reachable from this Unraid server, and
+an API key generated from that container's own Web UI (API tab, Read
+permission). Configure address, port, and the key under
 Settings -> Utilities -> Backblaze64 Monitor after installing.
 -->
 
@@ -41,11 +39,41 @@ Settings -> Utilities -> Backblaze64 Monitor after installing.
 >
 
 <DESCRIPTION>
-Dashboard tile for the Backblaze64 container's built-in upload monitor. Shows live upload speed, backup progress, memory usage, and connection latency on your Unraid Dashboard, with a drag-and-drop settings page to choose which fields appear and where.
+Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status API. Shows live upload speed, backup progress, file counts, failures, memory usage, and connection latency on your Unraid Dashboard, with a drag-and-drop settings page to choose which fields appear and where.
 </DESCRIPTION>
 
 <CHANGES>
 ### &version;
+- Switched the data source from scraping the container's built-in
+  /monitor/ page to its key-authenticated /api/v1/status endpoint.
+  Works whether the container's own Web Authentication is on or off,
+  and no longer depends on that page's internal markup
+- Connection tab: replaced Secure Connection with an API Key field
+  (generate one from Backblaze64's own Web UI -> API tab -> Read
+  permission). Scheme (http/https) is now detected automatically
+  instead of asked for
+- Removed the Data Points tab -- each field on the Item Sorting tab's
+  Expanded Columns now carries its own show/hide checkbox instead,
+  alongside the existing drag-to-reorder handle
+- Added eight new fields, sourced from the API and off by default:
+  Last Backup (days since), Total Files, Completed Files, Failed Files
+  (shown in red once non-zero), Health (reads "OK" in green, or the
+  first reported issue in red), Uploads Today (success/failure counts
+  for the day), First Backup (only appears while a first pass is still
+  running, in "Day X" form), and Scan Progress (only appears while a
+  file-list scan is running, with a progress bar)
+- Added Failed Files as an option for the tile's collapsed summary line
+- Item Sorting tab now notes that Scan Progress (both in Expanded
+  Columns and the second collapsed row) only appears on the tile while
+  a scan is actually running
+- Tile now reads "Please add API key to plugin settings" when no key
+  is configured, and "Error with API access, check plugin settings and
+  key access" if the API can't be reached or the key is rejected
+- Cleaned up a stray, incorrectly-named empty directory
+  (`{css,js,include}`) that had been shipping inside the package since
+  an early build
+
+### 2026.08.14
 - Fixed the live preview being unreadable (dark card background with
   black text, and a white-on-white "Live Preview" label) -- the preview
   markup sat outside the settings form's own theme-aware styling scope,
@@ -100,7 +128,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>15abef1a508e37c8c56483ee0c7bf20f2004a9be1217eb4b568e04b4e66317a7</SHA256>
+<SHA256>11823bff328846786208d62220311c90f45206a96427e6498fc4f9554aeeb65a</SHA256>
 </FILE>
 
 <!--
@@ -116,8 +144,9 @@ echo " Backblaze64 Monitor has been installed."
 echo " Version: &version;"
 echo ""
 echo " Next step: go to Settings -> Utilities -> Backblaze64 Monitor"
-echo " and enter your Backblaze64 container's address and port"
-echo " (the same one used by its Web UI), then check the Dashboard page."
+echo " and enter your Backblaze64 container's address and port, plus"
+echo " an API key generated from its own Web UI (API tab, Read"
+echo " permission), then check the Dashboard page."
 echo "----------------------------------------------------"
 echo ""
 </INLINE>
@@ -143,8 +172,8 @@ REMOVE
 <INLINE>
 removepkg &packageName; 2>/dev/null
 
-# Keep the user's saved settings (server address, credentials, toggles) on
-# the flash drive in case they reinstall later. Uncomment to wipe them too:
+# Keep the user's saved settings (server address, key, toggles) on the
+# flash drive in case they reinstall later. Uncomment to wipe them too:
 # rm -rf &pluginLOC;
 
 echo ""
