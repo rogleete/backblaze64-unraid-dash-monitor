@@ -9,5 +9,6 @@
     Dashboard tile so nothing requires opening a separate browser tab.
   </Profile>
   <WebPage>https://github.com/rogleete/backblaze64-unraid-dash-monitor</WebPage>
+  <Forum>https://forums.unraid.net/topic/200227-plugin-backblaze64-monitor/</Forum>
   <!-- Optional support links -->
 </CommunityApplications>
