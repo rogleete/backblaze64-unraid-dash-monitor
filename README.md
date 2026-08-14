@@ -17,7 +17,7 @@ appear and how they're arranged across the tile's two columns.
 
 <br><br>
 This plugin does not gather any data itself; it uses the container's own API. You need to open the Backblaze64 web GUI, click on the API tab and generate an API key.
-Then paste that key in the plugin settings on the Connnection tab.
+Then paste that key in the plugin settings on the Connection tab.
 
 Requires a <a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">Backblaze64</a> container reachable from the Unraid server.
 Configure the address, port, and API settings.
