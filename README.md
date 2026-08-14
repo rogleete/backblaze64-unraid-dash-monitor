@@ -20,7 +20,7 @@ This plugin does not gather any data itself; it uses the container's own API. Yo
 Then paste that key in the plugin settings on the Connnection tab.
 
 Requires a <a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">Backblaze64</a> container reachable from the Unraid server.
-Configure the address, port, and security settings.
+Configure the address, port, and API settings.
 
 Settings -> Utilities -> Backblaze64 Monitor after installing.
 
