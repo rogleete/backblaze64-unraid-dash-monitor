@@ -16,7 +16,7 @@ appear and how they're arranged across the tile's two columns.
 <img width="374" height="148" alt="dash" src="https://github.com/user-attachments/assets/5dea4255-6951-4da2-a283-a51fe0dff743" />
 
 <br><br>
-This plugin does not gather any data itself; it uses the container's own API. You need to open the Backblazew64 web GUI, click on the API tab and generate an API key.
+This plugin does not gather any data itself; it uses the container's own API. You need to open the Backblaze64 web GUI, click on the API tab and generate an API key.
 Then paste that key in the plugin settings on the Connnection tab.
 
 Requires a <a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">Backblaze64</a> container reachable from the Unraid server.
@@ -24,9 +24,12 @@ Configure the address, port, and security settings.
 
 Settings -> Utilities -> Backblaze64 Monitor after installing.
 
-<img width="826" height="459" alt="settings1" src="https://github.com/user-attachments/assets/cb7add5c-ae18-4d59-aa45-aba16f0c0b7a" />
-<img width="826" height="601" alt="settings2" src="https://github.com/user-attachments/assets/4f991b6f-8211-44ca-8eb4-cded850c088a" />
-<img width="826" height="700" alt="settings3" src="https://github.com/user-attachments/assets/485ad7ad-6145-4698-a8b9-7e1fada994c1" />
+<img width="559" height="406" alt="settings3preview" src="https://github.com/user-attachments/assets/eb916f7d-c974-485b-aa88-60d8c38727d4" />
+<img width="823" height="466" alt="settings1" src="https://github.com/user-attachments/assets/7d91d132-ca30-48b9-bd22-0b5e756432ca" />
+<img width="819" height="1159" alt="settings2" src="https://github.com/user-attachments/assets/0eca510a-02a6-430f-ac2d-30689c31d7bf" />
+
+
+
 
 
 <h1><b>Credits</b></h1>
