@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.15">
+<!ENTITY version     "2026.08.15.1">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -39,11 +39,35 @@ Settings -> Utilities -> Backblaze64 Monitor after installing.
 >
 
 <DESCRIPTION>
-Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status API. Shows live upload speed, backup progress, file counts, failures, memory usage, and connection latency on your Unraid Dashboard, with a drag-and-drop settings page to choose which fields appear and where.
+Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status API. Shows live upload speed, backup progress, file counts, failures, memory usage, and connection latency on your Unraid Dashboard, with a drag-and-drop settings page to choose which fields appear and where, plus color and layout themes for the tile itself.
 </DESCRIPTION>
 
 <CHANGES>
 ### &version;
+- Added a "Color Theme" tab with 12 color palettes (Default, Ocean,
+  Sunset, Forest, Rose, Amber, Teal, Coral, Indigo, Lime, Steel, Plum).
+  Each theme recolors the full good/elevated/problem status
+  progression throughout the tile, not just the "good" accent, and its
+  settings cell shows a full-width legend bar demonstrating all three
+  colors at the real thresholds (bad under 34%, elevated 34-66%, good
+  from 67% up)
+- Added a "Style Theme" tab with 8 layouts for the tile's expanded
+  field list, independent of Color Theme (which only changes colors):
+  Default, Rings (circular gauges for percentage fields), Compact
+  (dense single-column list with a dotted leader line), Cards
+  (bordered stat cards with a thin accent bar), Segmented (a retro
+  block-meter bar), Spotlight (Upload Rate as a big hero stat), Minimal
+  (plain typography, no boxes or bars), and Icons (icon + label/value
+  rows with a thin inline bar). Each option previews its real renderer
+  fed with sample data
+- Updated the default field selection and order for new installs (and
+  "Reset to Defaults") to a more useful out-of-the-box layout: Last
+  Backup, Total Files, Completed Files, Failed Files, Health, and First
+  Backup are now on by default; Scan Progress and Backup Total are on
+  by default in the collapsed tile's second row; State is now off by
+  default
+
+### 2026.08.15
 - Switched the data source from scraping the container's built-in
   /monitor/ page to its key-authenticated /api/v1/status endpoint.
   Works whether the container's own Web Authentication is on or off,
@@ -128,7 +152,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>11823bff328846786208d62220311c90f45206a96427e6498fc4f9554aeeb65a</SHA256>
+<SHA256>2b3237158ddf4c9a2cf28f4e6de317b20c651f691a5dfb09143b6476201bffc1</SHA256>
 </FILE>
 
 <!--
