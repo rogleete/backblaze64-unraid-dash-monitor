@@ -1,5 +1,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/rogleete/backblaze64-unraid-dash-monitor/total)
 <h1><b>Backblaze64 Monitor:</h1></b> 
+  <img width="134" height="129" alt="small-icon" src="https://github.com/user-attachments/assets/be37a7d7-afe3-4b6c-93f9-5802e091b77b" />
+
 An Unraid dashboard tile for the upload monitor built
 into the Backblaze64 container (<a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">iamfoz/backblaze-64-personal-wine-container</a>).<br><br>
 
@@ -11,9 +13,10 @@ Auto-refreshing, collapsible to a one-line summary, with color-coded
 progress bars. A dedicated settings page lets you choose which fields
 appear and how they're arranged across the tile's two columns.
 
-<img width="450" height="73" alt="dashcollapsed" src="https://github.com/user-attachments/assets/fc8a4f67-6929-4de6-83b9-13fa0a107099" />
+<img width="523" height="82" alt="collapsed" src="https://github.com/user-attachments/assets/506faa88-5ec3-4f24-960d-df15143c42cf" />
+<br>
+<img width="521" height="273" alt="expanded" src="https://github.com/user-attachments/assets/3035cb85-55b1-49c4-a69a-caa682d41a0a" />
 
-<img width="374" height="148" alt="dash" src="https://github.com/user-attachments/assets/5dea4255-6951-4da2-a283-a51fe0dff743" />
 
 <br><br>
 This plugin does not gather any data itself; it uses the container's own API. You need to open the Backblaze64 web GUI, click on the API tab and generate an API key.
@@ -26,7 +29,12 @@ Settings -> Utilities -> Backblaze64 Monitor after installing.
 
 <img width="559" height="406" alt="settings3preview" src="https://github.com/user-attachments/assets/eb916f7d-c974-485b-aa88-60d8c38727d4" />
 <img width="823" height="466" alt="settings1" src="https://github.com/user-attachments/assets/7d91d132-ca30-48b9-bd22-0b5e756432ca" />
-<img width="819" height="1159" alt="settings2" src="https://github.com/user-attachments/assets/0eca510a-02a6-430f-ac2d-30689c31d7bf" />
+<img width="814" height="1033" alt="settings-sort" src="https://github.com/user-attachments/assets/29ecbf3b-51db-47db-9659-e62e777660d1" />
+<img width="819" height="1116" alt="settings-colors" src="https://github.com/user-attachments/assets/558d6c7b-b3ba-461d-8abc-32a6b988ad66" />
+<img width="813" height="1075" alt="settings-styles" src="https://github.com/user-attachments/assets/fd303761-7a5b-441f-a0af-df424b5104e7" />
+
+
+
 
 
 
