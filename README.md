@@ -1,6 +1,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/rogleete/backblaze64-unraid-dash-monitor/total)
-<h1><b>Backblaze64 Monitor:</h1></b> 
-  <img width="134" height="129" alt="small-icon" src="https://github.com/user-attachments/assets/be37a7d7-afe3-4b6c-93f9-5802e091b77b" />
+<br><br>
+<img width="134" height="129" alt="small-icon" src="https://github.com/user-attachments/assets/be37a7d7-afe3-4b6c-93f9-5802e091b77b" /><h1><b>Backblaze64 Monitor:</h1></b> 
+  
 
 An Unraid dashboard tile for the upload monitor built
 into the Backblaze64 container (<a href="https://github.com/iamfoz/backblaze-64-personal-wine-container/tree/main">iamfoz/backblaze-64-personal-wine-container</a>).<br><br>
