@@ -2,6 +2,7 @@
 <Plugin>
   <Name>Backblaze64 Monitor</Name>
   <PluginURL>https://raw.githubusercontent.com/rogleete/backblaze64-unraid-dash-monitor/main/backblaze64-monitor.plg</PluginURL>
+  <PluginAuthor>Rogman</PluginAuthor>
   <Icon>https://github.com/rogleete/backblaze64-unraid-dash-monitor/blob/main/backblaze-monitor-icon.svg</Icon>
   <Project>https://github.com/rogleete/backblaze64-unraid-dash-monitor</Project>
   <Support>https://forums.unraid.net/topic/200227-plugin-backblaze64-monitor/</Support>
