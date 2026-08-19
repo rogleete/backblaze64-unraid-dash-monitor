@@ -14,7 +14,7 @@ Auto-refreshing, collapsible to a one-line summary, with color-coded progress ba
 
 Requires a running Backblaze64 container reachable from the server, and an API key generated from its own Web UI (API tab, Read permission).
   </Description>
-  <License>AGPLv3</License>
+  <License>GPLv3</License>
   <Screenshot>https://forumassets.unraid.net/monthly_2026_08/expanded.jpg.14bf0bfb4b724207c66c818c89d6c81a.jpg</Screenshot>
   <Category>Tools:Utilities</Category>
 </Plugin>
