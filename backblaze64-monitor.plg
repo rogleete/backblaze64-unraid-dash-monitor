@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.15.1">
+<!ENTITY version     "2026.08.19">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,20 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Added "Current File": an optional line below Scan Progress / Backup
+  Total (Item Sorting tab, off by default) showing the name of the
+  file currently being backed up with its own small progress bar. Only
+  appears while a file is actively transferring (not just when the API
+  has a filename cached from earlier), and requires the API key to
+  have read:files permission -- without it, checking the box shows
+  nothing rather than an error, the same graceful no-op Scan Progress
+  already uses
+- Fixed the Dashboard tile's stylesheet and script URLs having no
+  cache-busting version string, unlike the Settings page's own asset
+  links -- CSS/JS fixes could reach the Settings page immediately but
+  sit stale on the Dashboard tab until a hard browser refresh
+
+### 2026.08.15.1
 - Added a "Color Theme" tab with 12 color palettes (Default, Ocean,
   Sunset, Forest, Rose, Amber, Teal, Coral, Indigo, Lime, Steel, Plum).
   Each theme recolors the full good/elevated/problem status
@@ -152,7 +166,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>2b3237158ddf4c9a2cf28f4e6de317b20c651f691a5dfb09143b6476201bffc1</SHA256>
+<SHA256>a70c4bb94ee699f01f756b938e8691a07c650a3b799f79a8dbedc6ca02676d74</SHA256>
 </FILE>
 
 <!--
