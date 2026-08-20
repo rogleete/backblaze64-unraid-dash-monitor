@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.19">
+<!ENTITY version     "2026.08.20">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,15 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed "Current File" showing a blank progress bar and the literal
+  word "None" when backup was complete and the tile was idle -- the
+  API can leave activity.phase stuck on "Uploading" after a backup
+  finishes, but with activity.file set to a placeholder string instead
+  of clearing it. The row is now hidden whenever the reported filename
+  is a placeholder value (none/null/n-a/-), not just when the phase
+  itself looks inactive
+
+### 2026.08.19
 - Added "Current File": an optional line below Scan Progress / Backup
   Total (Item Sorting tab, off by default) showing the name of the
   file currently being backed up with its own small progress bar. Only
@@ -166,7 +175,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>a70c4bb94ee699f01f756b938e8691a07c650a3b799f79a8dbedc6ca02676d74</SHA256>
+<SHA256>27942aca9286e7a4d577d623a9efbde55536d1b6ce04ebdf68b675cc92ac35a8</SHA256>
 </FILE>
 
 <!--
