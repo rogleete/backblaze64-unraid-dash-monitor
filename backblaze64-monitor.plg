@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.21.1">
+<!ENTITY version     "2026.08.21.2">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,13 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed the "Show Recent Uploads in Collapsed View" checkbox, count
+  dropdown, and Show Timestamps checkbox stretching to the full row
+  width instead of sizing to content -- they were sitting in a plain
+  description div instead of the flex-row container the same controls
+  use correctly in the Recent Uploads section below
+
+### 2026.08.21.1
 - "Display in collapsed view" renamed to "Show Recent Uploads in
   Collapsed View" and given its own settings, fully independent from
   the Recent Uploads section below: its own file count (1-5, default
@@ -206,7 +213,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>5e99d6e724bd3f87ae2e2dc9e0931abf795a77725242263f1b402878e0dbe1a8</SHA256>
+<SHA256>82bf32bba8f9a19836a21ab1e0d93b672d7ebd91883b9d59d5f8ee3ec3654945</SHA256>
 </FILE>
 
 <!--
