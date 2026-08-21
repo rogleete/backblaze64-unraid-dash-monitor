@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.21">
+<!ENTITY version     "2026.08.21.1">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,13 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- "Display in collapsed view" renamed to "Show Recent Uploads in
+  Collapsed View" and given its own settings, fully independent from
+  the Recent Uploads section below: its own file count (1-5, default
+  3) and its own Show Timestamps checkbox, no longer sharing either
+  with the below-columns list
+
+### 2026.08.21
 - Added Recent Uploads: a list of recently completed uploads (1-10,
   default 5), newest first, filenames only in the same font as Current
   File, with an optional completion timestamp before each name. Shown
@@ -199,7 +206,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>64ec498204bfa7874869a3b845ce963006aae72ea6bb0b6730db558021bed725</SHA256>
+<SHA256>5e99d6e724bd3f87ae2e2dc9e0931abf795a77725242263f1b402878e0dbe1a8</SHA256>
 </FILE>
 
 <!--
