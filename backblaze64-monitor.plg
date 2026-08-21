@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.20.1">
+<!ENTITY version     "2026.08.21">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,22 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Added Recent Uploads: a list of recently completed uploads (1-10,
+  default 5), newest first, filenames only in the same font as Current
+  File, with an optional completion timestamp before each name. Shown
+  below the expanded columns by default; a separate checkbox can also
+  show the same list directly under Current File in the collapsed
+  view (capped at 5 there regardless of the count setting) -- both,
+  either, or neither can be on independently. Requires the API key to
+  have read:files permission, same as Current File
+- Connection tab's API key note now mentions both Read and Read:Files
+  permission
+- Updated several defaults: Failed Files and Current File now on by
+  default in Collapsed Tile Data, Uploads Today on by default in
+  Column 1, and State moved above Files Remaining in Column 2's
+  default order
+
+### 2026.08.20.1
 - Backup Total (second row) now hides once Files Remaining would read
   "Backup Complete," instead of the progress bar lingering at a stale
   percentage after the backup itself finished
@@ -183,7 +199,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>4384a5d246473fddccddfc3f4dda4453dc994036054e72a658b0e107cc6bc784</SHA256>
+<SHA256>64ec498204bfa7874869a3b845ce963006aae72ea6bb0b6730db558021bed725</SHA256>
 </FILE>
 
 <!--
