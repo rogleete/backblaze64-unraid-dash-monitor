@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.20">
+<!ENTITY version     "2026.08.20.1">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,14 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Backup Total (second row) now hides once Files Remaining would read
+  "Backup Complete," instead of the progress bar lingering at a stale
+  percentage after the backup itself finished
+- Backup ETA and Upload Rate (first row) now hide whenever State reads
+  "Idle," instead of showing a stale rate or countdown next to a state
+  that says nothing is happening
+
+### 2026.08.20
 - Fixed "Current File" showing a blank progress bar and the literal
   word "None" when backup was complete and the tile was idle -- the
   API can leave activity.phase stuck on "Uploading" after a backup
@@ -175,7 +183,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>27942aca9286e7a4d577d623a9efbde55536d1b6ce04ebdf68b675cc92ac35a8</SHA256>
+<SHA256>4384a5d246473fddccddfc3f4dda4453dc994036054e72a658b0e107cc6bc784</SHA256>
 </FILE>
 
 <!--
