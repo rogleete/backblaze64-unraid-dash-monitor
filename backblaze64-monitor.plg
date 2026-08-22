@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.21.2">
+<!ENTITY version     "2026.08.21.3">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,14 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Recent Uploads filenames (both the collapsed-view list and the list
+  below the expanded columns) now wrap onto a second line once they're
+  over 63 characters, matching the wrap behavior already visible in
+  the Settings live preview -- previously they'd stay on one line on
+  the live tile whenever it was wide enough to fit them, since nothing
+  forced a break at a consistent length
+
+### 2026.08.21.2
 - Fixed the "Show Recent Uploads in Collapsed View" checkbox, count
   dropdown, and Show Timestamps checkbox stretching to the full row
   width instead of sizing to content -- they were sitting in a plain
@@ -213,7 +221,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>82bf32bba8f9a19836a21ab1e0d93b672d7ebd91883b9d59d5f8ee3ec3654945</SHA256>
+<SHA256>a66bfb7fe6ff1502e112beb8c4f23ce1b46f52f5e9973ded3a159faf360d1aec</SHA256>
 </FILE>
 
 <!--
