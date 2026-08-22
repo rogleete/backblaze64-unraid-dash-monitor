@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.21.5">
+<!ENTITY version     "2026.08.21.6">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,9 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Recent Uploads filename wrap point changed from 70 to 60 characters
+
+### 2026.08.21.5
 - Recent Uploads filename wrap point changed from 63 to 70 characters
 
 ### 2026.08.21.4
@@ -235,7 +238,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>a536c8e874211c2fad93d3d4dd73ec2a7f130ce3e59c15890e20ba668abac3c1</SHA256>
+<SHA256>b9d39c0f01733fd82c09bbd65af6177ab5f0b04361fc37335781a2b1d7bbee2b</SHA256>
 </FILE>
 
 <!--
