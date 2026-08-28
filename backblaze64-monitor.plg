@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.27">
+<!ENTITY version     "2026.08.28">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,15 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed "Backup Complete" never showing the total size backed up --
+  the previous build read backup.done_bytes directly, a raw byte
+  count that was never actually stored on the normalized data (only
+  the pre-formatted used_str/total_str strings the expanded Backup
+  Total field itself uses are), so the size always silently fell back
+  to being omitted. Now reads used_str, the same figure already shown
+  as the left side of Backup Total's "16.3 / 16.3 TB"
+
+### 2026.08.27
 - Files Remaining now shows the total size backed up alongside "Backup
   Complete" (e.g. "Backup Complete - 16.3 TB"), only in that completed
   state -- falls back to plain "Backup Complete" if the API hasn't
@@ -244,7 +253,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>cbabc89ead3a1d3747687401d1149e7c6a697c582b43317c0b179ddf6b1b463e</SHA256>
+<SHA256>7058e505f92e0d795bbdca94722b6af5bd0e145ee515d23abe8d410b53889635</SHA256>
 </FILE>
 
 <!--
