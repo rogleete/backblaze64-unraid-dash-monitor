@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.29">
+<!ENTITY version     "2026.08.29.1">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,12 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Failed Files on the collapsed one-line summary no longer shows green
+  at 0 -- plain text at 0, red the moment it's not 0. The expanded
+  Failed Files field (in the dropdown) is unchanged: still green at 0,
+  red otherwise
+
+### 2026.08.29
 - Uploads Today's "X failed" relabeled to "X retried" -- per the
   updated api-v1.md, that number was never a failed-file count, it's
   failed upload attempts Backblaze's own load balancing retried
@@ -263,7 +269,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>a37e3627a58f55a9889dc36831a3431eac9bc16df0c26a8678c5c69d7b8332f2</SHA256>
+<SHA256>6449e003a9b39f42aca31c7b24594a20fdefcabae31ebc7519c1b6ffdb6e297c</SHA256>
 </FILE>
 
 <!--
