@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.28">
+<!ENTITY version     "2026.08.29">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,16 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Uploads Today's "X failed" relabeled to "X retried" -- per the
+  updated api-v1.md, that number was never a failed-file count, it's
+  failed upload attempts Backblaze's own load balancing retried
+  against another vault. Now reads uploads_today.retried_attempts (the
+  same number under its honest name), falling back to .failures on an
+  older API build that doesn't have it yet
+- Failed Files (skipped_files) now shows 0 instead of n/a when the API
+  hasn't reported it, in both the collapsed and expanded views
+
+### 2026.08.28
 - Fixed "Backup Complete" never showing the total size backed up --
   the previous build read backup.done_bytes directly, a raw byte
   count that was never actually stored on the normalized data (only
@@ -253,7 +263,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>7058e505f92e0d795bbdca94722b6af5bd0e145ee515d23abe8d410b53889635</SHA256>
+<SHA256>a37e3627a58f55a9889dc36831a3431eac9bc16df0c26a8678c5c69d7b8332f2</SHA256>
 </FILE>
 
 <!--
