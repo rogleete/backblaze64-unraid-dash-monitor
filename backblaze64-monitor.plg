@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.02.2">
+<!ENTITY version     "2026.09.02.3">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,22 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed the Pause/Resume button not working at all ("missing
+  csrf_token" in the Unraid log) -- it was reading a page-wide JS
+  `csrf_token` global that the Dashboard doesn't actually expose, so
+  every click sent an empty token and Unraid's webGUI rejected the
+  request before control.php ever ran. The real per-session token is
+  now embedded server-side on the tile's own markup
+  (Backblaze64MonitorTile.page, from $_SESSION['csrf_token']) and read
+  from there instead; control.php also now validates it explicitly for
+  a clear error message if it's ever missing or wrong
+- Fixed the button's width not actually shrinking when set -- it was
+  the only interactive element in the stylesheet not scoped under
+  .bbmon-root, so Unraid's own default button styling (border,
+  padding, border-radius) had enough specificity to beat the reset.
+  Fixed and set to 3ch wide, height and icon size unchanged
+
+### 2026.09.02.2
 - Backup Control button width set to 4ch (four characters wide) --
   height and icon size unchanged, only the button's own outer width
   changed
@@ -289,7 +305,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>a2bc8d59f273fdc4b9ad665dcab5730be86b7dd5ffb642e2eaf8f17d63e41ba5</SHA256>
+<SHA256>8da480b147aa527fbeae6ff0887818d883170afbef06661e741330ba3751e9d8</SHA256>
 </FILE>
 
 <!--
