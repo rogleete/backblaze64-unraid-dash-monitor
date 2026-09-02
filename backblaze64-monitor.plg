@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.08.29.1">
+<!ENTITY version     "2026.09.02">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,21 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Added Backup Control: an icon-only Pause/Resume button, first in the
+  collapsed summary row ahead of State/Upload Rate/etc, orange while
+  a backup is running (click to pause) and green once paused (click
+  to start a backup now -- Backblaze's own documented way out of a
+  pause). Off by default; enable it from a new "Backup Control"
+  checkbox in Settings, positioned just above the collapsed one-line
+  summary's field list. Requires the API key to additionally hold
+  control:pause and control:backup-now permission -- without it the
+  button still appears but clicking it surfaces a clear error rather
+  than doing nothing. The API key never reaches the browser: a new
+  include/control.php endpoint makes the actual POST server-side,
+  re-validating the action against a fixed whitelist regardless of
+  what the request claims
+
+### 2026.08.29.1
 - Failed Files on the collapsed one-line summary no longer shows green
   at 0 -- plain text at 0, red the moment it's not 0. The expanded
   Failed Files field (in the dropdown) is unchanged: still green at 0,
@@ -269,7 +284,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>6449e003a9b39f42aca31c7b24594a20fdefcabae31ebc7519c1b6ffdb6e297c</SHA256>
+<SHA256>cc05a9e98feb896c2354db92cbd3cb5ae53024d25527bd16a6e33c2b31e671b9</SHA256>
 </FILE>
 
 <!--
