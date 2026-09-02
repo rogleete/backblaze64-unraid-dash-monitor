@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.02">
+<!ENTITY version     "2026.09.02.2">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,11 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Backup Control button width set to 4ch (four characters wide) --
+  height and icon size unchanged, only the button's own outer width
+  changed
+
+### 2026.09.02
 - Added Backup Control: an icon-only Pause/Resume button, first in the
   collapsed summary row ahead of State/Upload Rate/etc, orange while
   a backup is running (click to pause) and green once paused (click
@@ -284,7 +289,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>cc05a9e98feb896c2354db92cbd3cb5ae53024d25527bd16a6e33c2b31e671b9</SHA256>
+<SHA256>a2bc8d59f273fdc4b9ad665dcab5730be86b7dd5ffb642e2eaf8f17d63e41ba5</SHA256>
 </FILE>
 
 <!--
