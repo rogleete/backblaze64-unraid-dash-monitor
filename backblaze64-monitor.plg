@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.02.3">
+<!ENTITY version     "2026.09.02.4">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,14 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed "wrong csrf_token" -- the previous fix embedded
+  $_SESSION['csrf_token'], which isn't what Unraid's webGUI actually
+  validates against (it doesn't use PHP sessions for this at all).
+  Both the tile and control.php now read the token from
+  /var/local/emhttp/var.ini instead, the single system-wide value
+  every other page's own CSRF check is really comparing against
+
+### 2026.09.02.3
 - Fixed the Pause/Resume button not working at all ("missing
   csrf_token" in the Unraid log) -- it was reading a page-wide JS
   `csrf_token` global that the Dashboard doesn't actually expose, so
@@ -305,7 +313,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>8da480b147aa527fbeae6ff0887818d883170afbef06661e741330ba3751e9d8</SHA256>
+<SHA256>e51f47e2062a12d4cda929ffdd46c2bf56574546fc38157c1aec08a67e68613d</SHA256>
 </FILE>
 
 <!--
