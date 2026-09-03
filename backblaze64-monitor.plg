@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.03.1">
+<!ENTITY version     "2026.09.03.2">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,15 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed the API key note showing literal &lt;strong&gt; tags instead
+  of bold text -- the settings-row helper was escaping its description
+  text, which is right for the three other rows (plain text) but wrong
+  for this one now that it deliberately embeds &lt;strong&gt; for
+  emphasis. Descriptions on this tab are always static, developer-
+  authored text (never config or user input), so no longer escaping
+  them is safe
+
+### 2026.09.03.1
 - Connection tab's API key note now lists all four permissions needed
   to use every feature (Read, Read:Files, Control:Pause,
   Control:Backup-Now), not just Read and Read:Files, and explains
@@ -334,7 +343,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>2111ebde5b21013ea1bfefa13beb3c2ffdff53240a7888577e59df7ed950e32e</SHA256>
+<SHA256>2842ac2ec7b2678fa17d7b7ca69bc4d0fe258f1cd29345c1c20936c8f9f43c96</SHA256>
 </FILE>
 
 <!--
