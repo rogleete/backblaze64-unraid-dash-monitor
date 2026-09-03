@@ -29,7 +29,7 @@ Configure the address, port, and API settings.
 Settings -> Utilities -> Backblaze64 Monitor after installing.
 
 <img width="559" height="406" alt="settings3preview" src="https://github.com/user-attachments/assets/eb916f7d-c974-485b-aa88-60d8c38727d4" />
-<img width="823" height="466" alt="settings1" src="https://github.com/user-attachments/assets/7d91d132-ca30-48b9-bd22-0b5e756432ca" />
+<img width="820" height="544" alt="image" src="https://github.com/user-attachments/assets/c51ca4eb-803f-4f7c-8a06-6e769aa9c1ff" />
 <img width="814" height="751" alt="image" src="https://github.com/user-attachments/assets/11c6322d-3259-488e-9d95-99c0cde77651" />
 <img width="816" height="675" alt="image" src="https://github.com/user-attachments/assets/af3e9e2b-fc45-4f26-92dd-2f9c0c2639f3" />
 
