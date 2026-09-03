@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.03">
+<!ENTITY version     "2026.09.03.1">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,17 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Connection tab's API key note now lists all four permissions needed
+  to use every feature (Read, Read:Files, Control:Pause,
+  Control:Backup-Now), not just Read and Read:Files, and explains
+  what each one unlocks
+- Uploads Today is now two-tone instead of one threshold color for
+  the whole value: "X ok" is always green, "X retried" is always
+  orange -- retries are routine load-balancing, not a failure signal,
+  so they no longer turn red the way an actual failed-file count does
+  elsewhere on the tile
+
+### 2026.09.03
 - Fixed the button's own request getting a 403 from control.php itself
   even after the var.ini fix -- Unraid's webGUI layer was already
   correctly validating the token upstream of this script (that's what
@@ -323,7 +334,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>05c51f8fe3f6c9fbc3962ba9e8a56ea01b70c87ecab67833b640b71a4d8b8914</SHA256>
+<SHA256>2111ebde5b21013ea1bfefa13beb3c2ffdff53240a7888577e59df7ed950e32e</SHA256>
 </FILE>
 
 <!--
