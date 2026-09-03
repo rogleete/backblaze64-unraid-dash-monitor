@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.02.4">
+<!ENTITY version     "2026.09.03">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,16 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed the button's own request getting a 403 from control.php itself
+  even after the var.ini fix -- Unraid's webGUI layer was already
+  correctly validating the token upstream of this script (that's what
+  produced the earlier "missing"/"wrong csrf_token" syslog lines), and
+  control.php's own redundant re-check was comparing against a guess
+  that disagreed with it, rejecting requests Unraid had already
+  accepted as valid. Removed that redundant check -- Unraid's own
+  layer is the sole authority on this now
+
+### 2026.09.02.4
 - Fixed "wrong csrf_token" -- the previous fix embedded
   $_SESSION['csrf_token'], which isn't what Unraid's webGUI actually
   validates against (it doesn't use PHP sessions for this at all).
@@ -313,7 +323,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>e51f47e2062a12d4cda929ffdd46c2bf56574546fc38157c1aec08a67e68613d</SHA256>
+<SHA256>05c51f8fe3f6c9fbc3962ba9e8a56ea01b70c87ecab67833b640b71a4d8b8914</SHA256>
 </FILE>
 
 <!--
