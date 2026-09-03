@@ -14,7 +14,8 @@ Auto-refreshing, collapsible to a one-line summary, with color-coded
 progress bars. A dedicated settings page lets you choose which fields
 appear and how they're arranged across the tile's two columns.
 
-<img width="523" height="82" alt="collapsed" src="https://github.com/user-attachments/assets/506faa88-5ec3-4f24-960d-df15143c42cf" />
+<img width="523" height="82" alt="image" src="https://github.com/user-attachments/assets/c45214e8-a959-49cc-a3be-192ed0b08d5c" />
+
 <br>
 <img width="521" height="273" alt="expanded" src="https://github.com/user-attachments/assets/3035cb85-55b1-49c4-a69a-caa682d41a0a" />
 
