@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.03.2">
+<!ENTITY version     "2026.09.03.3">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,16 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Experimental compact header layout: the title font is much smaller
+  now and the tile's collapsed summary line sits directly under it
+  instead of as a separate block below the whole header, so the icon
+  visually flanks both the title and the summary line together for a
+  tighter, closer-to-one-line collapsed tile. Scoped entirely to this
+  plugin's own markup and CSS classes -- doesn't affect any other
+  tile's header. Legacy pre-7.2 Unraid keeps the original stacked
+  layout unchanged
+
+### 2026.09.03.2
 - Fixed the API key note showing literal &lt;strong&gt; tags instead
   of bold text -- the settings-row helper was escaping its description
   text, which is right for the three other rows (plain text) but wrong
@@ -343,7 +353,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>2842ac2ec7b2678fa17d7b7ca69bc4d0fe258f1cd29345c1c20936c8f9f43c96</SHA256>
+<SHA256>b68977a3b9231e0a43ec81da9d5f26c6295e6f1f64c85df3c01961374db6d929</SHA256>
 </FILE>
 
 <!--
