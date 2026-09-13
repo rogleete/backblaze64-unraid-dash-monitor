@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.03.5">
+<!ENTITY version     "2026.09.03.6">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,16 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Fixed the previous build's title/status-row fix trading one gap for
+  another -- the icon was only ever placed in grid row 1, so that
+  row's height stayed pinned to the icon's own ~32px regardless of the
+  title's line-height; tightening the title's line-height just moved
+  the empty space from above the title to below it instead of removing
+  it. The icon now spans both the title row and the status row and
+  centers itself across their combined height, so each row's height is
+  driven by its own (short) content instead of by the icon
+
+### 2026.09.03.5
 - The gap above the title and between the title and the status row
   wasn't actually fully closed in the previous build despite that
   changelog entry -- .bbmon-summary (the status row) still carried its
@@ -374,7 +384,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>47ab481b4dc562c1ad7329a0a9bf029b255668a4671d21040af3ad4b5b53ee94</SHA256>
+<SHA256>46c7c93b7d8a8ab34095d6fb60fc83fa7597014b8f6c6dae34494bd716bebc2c</SHA256>
 </FILE>
 
 <!--
