@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.03.3">
+<!ENTITY version     "2026.09.03.5">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,27 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- The gap above the title and between the title and the status row
+  wasn't actually fully closed in the previous build despite that
+  changelog entry -- .bbmon-summary (the status row) still carried its
+  own base rule's 4px top padding, only its margin had been zeroed,
+  and the title had no explicit line-height override, so Unraid's own
+  line-height (sized for its normal, larger title font) stayed in
+  effect and kept the title's line box taller than the icon. Both
+  fixed now
+
+### 2026.09.03.4
+- Fixed the compact header layout dragging every line below the first
+  (row2, the expanded full grid, Recent Uploads) into the same narrow
+  icon-offset column the first line uses -- only the collapsed
+  one-line status row should sit next to the icon; everything else
+  now spans the full width flush left again, same as before the
+  compact-header experiment. Also removed the empty space that had
+  been showing up above the now-smaller title and between the title
+  and the status row, both leftover from Unraid's own header sizing
+  assuming a full-size title
+
+### 2026.09.03.3
 - Experimental compact header layout: the title font is much smaller
   now and the tile's collapsed summary line sits directly under it
   instead of as a separate block below the whole header, so the icon
@@ -353,7 +374,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>b68977a3b9231e0a43ec81da9d5f26c6295e6f1f64c85df3c01961374db6d929</SHA256>
+<SHA256>47ab481b4dc562c1ad7329a0a9bf029b255668a4671d21040af3ad4b5b53ee94</SHA256>
 </FILE>
 
 <!--
