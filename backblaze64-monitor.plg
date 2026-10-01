@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.12">
+<!ENTITY version     "2026.09.30">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,14 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Added a Health checkbox to the collapsed tile's second-row section
+  (Item Sorting tab), between Backup Total and Current File. When
+  checked, the tile shows "Health:" followed by its status on the
+  same line as Scan Progress and Backup Total, after them -- green
+  "OK" when nothing is wrong, or the first reported issue in red.
+  Off by default; Current File still sits on its own line below
+
+### 2026.09.12
 - Fixed the previous build's title/status-row fix trading one gap for
   another -- the icon was only ever placed in grid row 1, so that
   row's height stayed pinned to the icon's own ~32px regardless of the
@@ -384,7 +392,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>46c7c93b7d8a8ab34095d6fb60fc83fa7597014b8f6c6dae34494bd716bebc2c</SHA256>
+<SHA256>a00a29d26cdd45728c5f36a6b0e4a02bfef5c243465ddddeacbd8d96880c86d8</SHA256>
 </FILE>
 
 <!--
