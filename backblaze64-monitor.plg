@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.09.30">
+<!ENTITY version     "2026.10.14">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,19 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Health is now checked by default in the collapsed tile's second-row
+  section (new installs, or any install that has never saved that
+  setting). Show Recent Uploads in Collapsed View is also on by
+  default now.
+- Added a "Show File Sizes" checkbox to both Recent Uploads settings
+  (the collapsed-view one and the expanded-area one), independent of
+  each other like the timestamp checkboxes. When checked, each line
+  shows the file's size (e.g. 333.8 MB) after the upload time and
+  before the filename. Uploads the API reports no size for (tiny
+  files it didn't measure) simply show no size. On by default for
+  both, as are both Recent Uploads on/off checkboxes
+
+### 2026.09.30
 - Added a Health checkbox to the collapsed tile's second-row section
   (Item Sorting tab), between Backup Total and Current File. When
   checked, the tile shows "Health:" followed by its status on the
@@ -392,7 +405,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>a00a29d26cdd45728c5f36a6b0e4a02bfef5c243465ddddeacbd8d96880c86d8</SHA256>
+<SHA256>1cac9ac8261cfbbc1fa430e05b99b0e39056f3a61ad2fa8e907c81821e34a420</SHA256>
 </FILE>
 
 <!--
