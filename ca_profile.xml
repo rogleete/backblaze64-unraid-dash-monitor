@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CommunityApplications>
   <Profile>
-    Backblaze64 Monitor is an Unraid Dashboard plugin for the Backblaze64
-    container, which runs Backblaze Personal Backup under Wine. This
+    Backblaze64 Monitor is an Unraid Dashboard plugin for the Backblaze64 and Backblaze-Personal
+    containers, which runs Backblaze Personal Backup under Wine. This
     repository maintains that plugin, polling the container's
     key-authenticated /api/v1/status endpoint to bring upload speed, backup
     progress, file counts, and connection status onto a native Unraid
