@@ -1,298 +1,330 @@
-2026.10.14
-Added file size check boxes to display file size of recently uploaded files
-2026.09.30
-Added a Health checkbox to the collapsed tile's second-row section
-(Item Sorting tab), between Backup Total and Current File. When
-checked, the tile shows "Health:" followed by its status on the
-same line as Scan Progress and Backup Total, after them -- green
-"OK" when nothing is wrong, or the first reported issue in red.
-Off by default; Current File still sits on its own line below
-2026.09.12
-Fixed the previous build's title/status-row fix trading one gap for
-another -- the icon was only ever placed in grid row 1, so that
-row's height stayed pinned to the icon's own ~32px regardless of the
-title's line-height; tightening the title's line-height just moved
-the empty space from above the title to below it instead of removing
-it. The icon now spans both the title row and the status row and
-centers itself across their combined height, so each row's height is
-driven by its own (short) content instead of by the icon
-2026.09.03.5
-The gap above the title and between the title and the status row
-wasn't actually fully closed in the previous build despite that
-changelog entry -- .bbmon-summary (the status row) still carried its
-own base rule's 4px top padding, only its margin had been zeroed,
-and the title had no explicit line-height override, so Unraid's own
-line-height (sized for its normal, larger title font) stayed in
-effect and kept the title's line box taller than the icon. Both
-fixed now
-2026.09.03.4
-Fixed the compact header layout dragging every line below the first
-(row2, the expanded full grid, Recent Uploads) into the same narrow
-icon-offset column the first line uses -- only the collapsed
-one-line status row should sit next to the icon; everything else
-now spans the full width flush left again, same as before the
-compact-header experiment. Also removed the empty space that had
-been showing up above the now-smaller title and between the title
-and the status row, both leftover from Unraid's own header sizing
-assuming a full-size title
-2026.09.03.3
-Experimental compact header layout: the title font is much smaller
-now and the tile's collapsed summary line sits directly under it
-instead of as a separate block below the whole header, so the icon
-visually flanks both the title and the summary line together for a
-tighter, closer-to-one-line collapsed tile. Scoped entirely to this
-plugin's own markup and CSS classes -- doesn't affect any other
-tile's header. Legacy pre-7.2 Unraid keeps the original stacked
-layout unchanged
-2026.09.03.2
-Fixed the API key note showing literal <strong> tags instead
-of bold text -- the settings-row helper was escaping its description
-text, which is right for the three other rows (plain text) but wrong
-for this one now that it deliberately embeds <strong> for
-emphasis. Descriptions on this tab are always static, developer-
-authored text (never config or user input), so no longer escaping
-them is safe
-2026.09.03.1
-Connection tab's API key note now lists all four permissions needed
-to use every feature (Read, Read:Files, Control:Pause,
-Control:Backup-Now), not just Read and Read:Files, and explains
-what each one unlocks
-Uploads Today is now two-tone instead of one threshold color for
-the whole value: "X ok" is always green, "X retried" is always
-orange -- retries are routine load-balancing, not a failure signal,
-so they no longer turn red the way an actual failed-file count does
-elsewhere on the tile
-2026.09.03
-Fixed the button's own request getting a 403 from control.php itself
-even after the var.ini fix -- Unraid's webGUI layer was already
-correctly validating the token upstream of this script (that's what
-produced the earlier "missing"/"wrong csrf_token" syslog lines), and
-control.php's own redundant re-check was comparing against a guess
-that disagreed with it, rejecting requests Unraid had already
-accepted as valid. Removed that redundant check -- Unraid's own
-layer is the sole authority on this now
-2026.09.02.4
-Fixed "wrong csrf_token" -- the previous fix embedded
-$_SESSION['csrf_token'], which isn't what Unraid's webGUI actually
-validates against (it doesn't use PHP sessions for this at all).
-Both the tile and control.php now read the token from
-/var/local/emhttp/var.ini instead, the single system-wide value
-every other page's own CSRF check is really comparing against
-2026.09.02.3
-Fixed the Pause/Resume button not working at all ("missing
-csrf_token" in the Unraid log) -- it was reading a page-wide JS
-csrf_token global that the Dashboard doesn't actually expose, so
-every click sent an empty token and Unraid's webGUI rejected the
-request before control.php ever ran. The real per-session token is
-now embedded server-side on the tile's own markup
-(Backblaze64MonitorTile.page, from $_SESSION['csrf_token']) and read
-from there instead; control.php also now validates it explicitly for
-a clear error message if it's ever missing or wrong
-Fixed the button's width not actually shrinking when set -- it was
-the only interactive element in the stylesheet not scoped under
-.bbmon-root, so Unraid's own default button styling (border,
-padding, border-radius) had enough specificity to beat the reset.
-Fixed and set to 3ch wide, height and icon size unchanged
-2026.09.02.2
-Backup Control button width set to 4ch (four characters wide) --
-height and icon size unchanged, only the button's own outer width
-changed
-2026.09.02
-Added Backup Control: an icon-only Pause/Resume button, first in the
-collapsed summary row ahead of State/Upload Rate/etc, orange while
-a backup is running (click to pause) and green once paused (click
-to start a backup now -- Backblaze's own documented way out of a
-pause). Off by default; enable it from a new "Backup Control"
-checkbox in Settings, positioned just above the collapsed one-line
-summary's field list. Requires the API key to additionally hold
-control:pause and control:backup-now permission -- without it the
-button still appears but clicking it surfaces a clear error rather
-than doing nothing. The API key never reaches the browser: a new
-include/control.php endpoint makes the actual POST server-side,
-re-validating the action against a fixed whitelist regardless of
-what the request claims
-2026.08.29.1
-Failed Files on the collapsed one-line summary no longer shows green
-at 0 -- plain text at 0, red the moment it's not 0. The expanded
-Failed Files field (in the dropdown) is unchanged: still green at 0,
-red otherwise
-2026.08.29
-Uploads Today's "X failed" relabeled to "X retried" -- per the
-updated api-v1.md, that number was never a failed-file count, it's
-failed upload attempts Backblaze's own load balancing retried
-against another vault. Now reads uploads_today.retried_attempts (the
-same number under its honest name), falling back to .failures on an
-older API build that doesn't have it yet
-Failed Files (skipped_files) now shows 0 instead of n/a when the API
-hasn't reported it, in both the collapsed and expanded views
-2026.08.28
-Fixed "Backup Complete" never showing the total size backed up --
-the previous build read backup.done_bytes directly, a raw byte
-count that was never actually stored on the normalized data (only
-the pre-formatted used_str/total_str strings the expanded Backup
-Total field itself uses are), so the size always silently fell back
-to being omitted. Now reads used_str, the same figure already shown
-as the left side of Backup Total's "16.3 / 16.3 TB"
-2026.08.27
-Files Remaining now shows the total size backed up alongside "Backup
-Complete" (e.g. "Backup Complete - 16.3 TB"), only in that completed
-state -- falls back to plain "Backup Complete" if the API hasn't
-reported a size
-2026.08.21.6
-Recent Uploads filename wrap point changed from 70 to 60 characters
-2026.08.21.5
-Recent Uploads filename wrap point changed from 63 to 70 characters
-2026.08.21.4
-Fixed Recent Uploads/Current File filenames shrinking to their
-max-width box but not actually wrapping onto a second line on a
-live Dashboard tile, spilling past the box instead -- a Dashboard
-tile's own ancestor markup inherits white-space:nowrap for its usual
-one-line summaries, which silently blocks wrapping regardless of
-overflow-wrap/word-break (those only choose where a break can
-happen; nowrap forbids breaking at all). Added an explicit
-white-space:normal to override it. The Settings live preview never
-showed this since its ancestor markup doesn't set nowrap
-2026.08.21.3
-Recent Uploads filenames (both the collapsed-view list and the list
-below the expanded columns) now wrap onto a second line once they're
-over 63 characters, matching the wrap behavior already visible in
-the Settings live preview -- previously they'd stay on one line on
-the live tile whenever it was wide enough to fit them, since nothing
-forced a break at a consistent length
-2026.08.21.2
-Fixed the "Show Recent Uploads in Collapsed View" checkbox, count
-dropdown, and Show Timestamps checkbox stretching to the full row
-width instead of sizing to content -- they were sitting in a plain
-description div instead of the flex-row container the same controls
-use correctly in the Recent Uploads section below
-2026.08.21.1
-"Display in collapsed view" renamed to "Show Recent Uploads in
-Collapsed View" and given its own settings, fully independent from
-the Recent Uploads section below: its own file count (1-5, default
-3) and its own Show Timestamps checkbox, no longer sharing either
-with the below-columns list
-2026.08.21
-Added Recent Uploads: a list of recently completed uploads (1-10,
-default 5), newest first, filenames only in the same font as Current
-File, with an optional completion timestamp before each name. Shown
-below the expanded columns by default; a separate checkbox can also
-show the same list directly under Current File in the collapsed
-view (capped at 5 there regardless of the count setting) -- both,
-either, or neither can be on independently. Requires the API key to
-have read:files permission, same as Current File
-Connection tab's API key note now mentions both Read and Read:Files
-permission
-Updated several defaults: Failed Files and Current File now on by
-default in Collapsed Tile Data, Uploads Today on by default in
-Column 1, and State moved above Files Remaining in Column 2's
-default order
-2026.08.20.1
-Backup Total (second row) now hides once Files Remaining would read
-"Backup Complete," instead of the progress bar lingering at a stale
-percentage after the backup itself finished
-Backup ETA and Upload Rate (first row) now hide whenever State reads
-"Idle," instead of showing a stale rate or countdown next to a state
-that says nothing is happening
-2026.08.20
-Fixed "Current File" showing a blank progress bar and the literal
-word "None" when backup was complete and the tile was idle -- the
-API can leave activity.phase stuck on "Uploading" after a backup
-finishes, but with activity.file set to a placeholder string instead
-of clearing it. The row is now hidden whenever the reported filename
-is a placeholder value (none/null/n-a/-), not just when the phase
-itself looks inactive
-2026.08.19
-Added "Current File": an optional line below Scan Progress / Backup
-Total (Item Sorting tab, off by default) showing the name of the
-file currently being backed up with its own small progress bar. Only
-appears while a file is actively transferring (not just when the API
-has a filename cached from earlier), and requires the API key to
-have read:files permission -- without it, checking the box shows
-nothing rather than an error, the same graceful no-op Scan Progress
-already uses
-Fixed the Dashboard tile's stylesheet and script URLs having no
-cache-busting version string, unlike the Settings page's own asset
-links -- CSS/JS fixes could reach the Settings page immediately but
-sit stale on the Dashboard tab until a hard browser refresh
-2026.08.15.1
-Added a "Color Theme" tab with 12 color palettes (Default, Ocean,
-Sunset, Forest, Rose, Amber, Teal, Coral, Indigo, Lime, Steel, Plum).
-Each theme recolors the full good/elevated/problem status
-progression throughout the tile, not just the "good" accent, and its
-settings cell shows a full-width legend bar demonstrating all three
-colors at the real thresholds (bad under 34%, elevated 34-66%, good
-from 67% up)
-Added a "Style Theme" tab with 8 layouts for the tile's expanded
-field list, independent of Color Theme (which only changes colors):
-Default, Rings (circular gauges for percentage fields), Compact
-(dense single-column list with a dotted leader line), Cards
-(bordered stat cards with a thin accent bar), Segmented (a retro
-block-meter bar), Spotlight (Upload Rate as a big hero stat), Minimal
-(plain typography, no boxes or bars), and Icons (icon + label/value
-rows with a thin inline bar). Each option previews its real renderer
-fed with sample data
-Updated the default field selection and order for new installs (and
-"Reset to Defaults") to a more useful out-of-the-box layout: Last
-Backup, Total Files, Completed Files, Failed Files, Health, and First
-Backup are now on by default; Scan Progress and Backup Total are on
-by default in the collapsed tile's second row; State is now off by
-default
-2026.08.15
-Switched the data source from scraping the container's built-in
-/monitor/ page to its key-authenticated /api/v1/status endpoint.
-Works whether the container's own Web Authentication is on or off,
-and no longer depends on that page's internal markup
-Connection tab: replaced Secure Connection with an API Key field
-(generate one from Backblaze64's own Web UI -> API tab -> Read
-permission). Scheme (http/https) is now detected automatically
-instead of asked for
-Removed the Data Points tab -- each field on the Item Sorting tab's
-Expanded Columns now carries its own show/hide checkbox instead,
-alongside the existing drag-to-reorder handle
-Added eight new fields, sourced from the API and off by default:
-Last Backup (days since), Total Files, Completed Files, Failed Files
-(shown in red once non-zero), Health (reads "OK" in green, or the
-first reported issue in red), Uploads Today (success/failure counts
-for the day), First Backup (only appears while a first pass is still
-running, in "Day X" form), and Scan Progress (only appears while a
-file-list scan is running, with a progress bar)
-Added Failed Files as an option for the tile's collapsed summary line
-Item Sorting tab now notes that Scan Progress (both in Expanded
-Columns and the second collapsed row) only appears on the tile while
-a scan is actually running
-Tile now reads "Please add API key to plugin settings" when no key
-is configured, and "Error with API access, check plugin settings and
-key access" if the API can't be reached or the key is rejected
-Cleaned up a stray, incorrectly-named empty directory
-({css,js,include}) that had been shipping inside the package since
-an early build
-2026.08.14
-Fixed the live preview being unreadable (dark card background with
-black text, and a white-on-white "Live Preview" label) -- the preview
-markup sat outside the settings form's own theme-aware styling scope,
-so it always used dark-mode colors regardless of the actual Unraid
-theme, and its text color never got set to match
-2026.08.13
-Added a "Collapsed Tile Data" section on the Item Sorting tab: choose
-which of State, Upload Rate, Files Remaining, and Backup ETA appear on
-the tile's collapsed summary line, and drag to set their order
-When Files Remaining reaches 0, the collapsed summary now shows
-"Backup Complete" in green instead of "0 files left"
-Backup ETA on the collapsed line now reads "ETA 2d 3h" instead of
-"Backup ETA 2d 3h", to save space -- the expanded column view is
-unchanged
-Added a live preview above the settings tabs, showing the actual tile
-with real data, updating as Data Points and Item Sorting settings
-change, before Apply
-2026.08.12
-Renamed every shared PHP function to a plugin-specific prefix
-(bbmon_ instead of bb_dash_), fixing a fatal "cannot redeclare
-function" error that occurred when this plugin and the original
-Backblaze64 Dash Monitor plugin were both installed at once, which
-could blank the entire Dashboard page
-Removed the unused username/password fields from Connection settings
-Hardened the tile against unexpected/missing fields in the monitor's
-JSON response, so a malformed response degrades to an error message
-on the tile instead of a blank Dashboard page
-2026.08.11
-Initial release
+### 2026.10.14
+- Added file size check boxes to display file size of recently uploaded files
+
+### 2026.09.30
+- Added a Health checkbox to the collapsed tile's second-row section
+  (Item Sorting tab), between Backup Total and Current File. When
+  checked, the tile shows "Health:" followed by its status on the
+  same line as Scan Progress and Backup Total, after them -- green
+  "OK" when nothing is wrong, or the first reported issue in red.
+  Off by default; Current File still sits on its own line below
+
+### 2026.09.12
+- Fixed the previous build's title/status-row fix trading one gap for
+  another -- the icon was only ever placed in grid row 1, so that
+  row's height stayed pinned to the icon's own ~32px regardless of the
+  title's line-height; tightening the title's line-height just moved
+  the empty space from above the title to below it instead of removing
+  it. The icon now spans both the title row and the status row and
+  centers itself across their combined height, so each row's height is
+  driven by its own (short) content instead of by the icon
+
+### 2026.09.03.5
+- The gap above the title and between the title and the status row
+  wasn't actually fully closed in the previous build despite that
+  changelog entry -- .bbmon-summary (the status row) still carried its
+  own base rule's 4px top padding, only its margin had been zeroed,
+  and the title had no explicit line-height override, so Unraid's own
+  line-height (sized for its normal, larger title font) stayed in
+  effect and kept the title's line box taller than the icon. Both
+  fixed now
+
+### 2026.09.03.4
+- Fixed the compact header layout dragging every line below the first
+  (row2, the expanded full grid, Recent Uploads) into the same narrow
+  icon-offset column the first line uses -- only the collapsed
+  one-line status row should sit next to the icon; everything else
+  now spans the full width flush left again, same as before the
+  compact-header experiment. Also removed the empty space that had
+  been showing up above the now-smaller title and between the title
+  and the status row, both leftover from Unraid's own header sizing
+  assuming a full-size title
+
+### 2026.09.03.3
+- Experimental compact header layout: the title font is much smaller
+  now and the tile's collapsed summary line sits directly under it
+  instead of as a separate block below the whole header, so the icon
+  visually flanks both the title and the summary line together for a
+  tighter, closer-to-one-line collapsed tile. Scoped entirely to this
+  plugin's own markup and CSS classes -- doesn't affect any other
+  tile's header. Legacy pre-7.2 Unraid keeps the original stacked
+  layout unchanged
+
+### 2026.09.03.2
+- Fixed the API key note showing literal &lt;strong&gt; tags instead
+  of bold text -- the settings-row helper was escaping its description
+  text, which is right for the three other rows (plain text) but wrong
+  for this one now that it deliberately embeds &lt;strong&gt; for
+  emphasis. Descriptions on this tab are always static, developer-
+  authored text (never config or user input), so no longer escaping
+  them is safe
+
+### 2026.09.03.1
+- Connection tab's API key note now lists all four permissions needed
+  to use every feature (Read, Read:Files, Control:Pause,
+  Control:Backup-Now), not just Read and Read:Files, and explains
+  what each one unlocks
+- Uploads Today is now two-tone instead of one threshold color for
+  the whole value: "X ok" is always green, "X retried" is always
+  orange -- retries are routine load-balancing, not a failure signal,
+  so they no longer turn red the way an actual failed-file count does
+  elsewhere on the tile
+
+### 2026.09.03
+- Fixed the button's own request getting a 403 from control.php itself
+  even after the var.ini fix -- Unraid's webGUI layer was already
+  correctly validating the token upstream of this script (that's what
+  produced the earlier "missing"/"wrong csrf_token" syslog lines), and
+  control.php's own redundant re-check was comparing against a guess
+  that disagreed with it, rejecting requests Unraid had already
+  accepted as valid. Removed that redundant check -- Unraid's own
+  layer is the sole authority on this now
+
+### 2026.09.02.4
+- Fixed "wrong csrf_token" -- the previous fix embedded
+  $_SESSION['csrf_token'], which isn't what Unraid's webGUI actually
+  validates against (it doesn't use PHP sessions for this at all).
+  Both the tile and control.php now read the token from
+  /var/local/emhttp/var.ini instead, the single system-wide value
+  every other page's own CSRF check is really comparing against
+
+### 2026.09.02.3
+- Fixed the Pause/Resume button not working at all ("missing
+  csrf_token" in the Unraid log) -- it was reading a page-wide JS
+  `csrf_token` global that the Dashboard doesn't actually expose, so
+  every click sent an empty token and Unraid's webGUI rejected the
+  request before control.php ever ran. The real per-session token is
+  now embedded server-side on the tile's own markup
+  (Backblaze64MonitorTile.page, from $_SESSION['csrf_token']) and read
+  from there instead; control.php also now validates it explicitly for
+  a clear error message if it's ever missing or wrong
+- Fixed the button's width not actually shrinking when set -- it was
+  the only interactive element in the stylesheet not scoped under
+  .bbmon-root, so Unraid's own default button styling (border,
+  padding, border-radius) had enough specificity to beat the reset.
+  Fixed and set to 3ch wide, height and icon size unchanged
+
+### 2026.09.02.2
+- Backup Control button width set to 4ch (four characters wide) --
+  height and icon size unchanged, only the button's own outer width
+  changed
+
+### 2026.09.02
+- Added Backup Control: an icon-only Pause/Resume button, first in the
+  collapsed summary row ahead of State/Upload Rate/etc, orange while
+  a backup is running (click to pause) and green once paused (click
+  to start a backup now -- Backblaze's own documented way out of a
+  pause). Off by default; enable it from a new "Backup Control"
+  checkbox in Settings, positioned just above the collapsed one-line
+  summary's field list. Requires the API key to additionally hold
+  control:pause and control:backup-now permission -- without it the
+  button still appears but clicking it surfaces a clear error rather
+  than doing nothing. The API key never reaches the browser: a new
+  include/control.php endpoint makes the actual POST server-side,
+  re-validating the action against a fixed whitelist regardless of
+  what the request claims
+
+### 2026.08.29.1
+- Failed Files on the collapsed one-line summary no longer shows green
+  at 0 -- plain text at 0, red the moment it's not 0. The expanded
+  Failed Files field (in the dropdown) is unchanged: still green at 0,
+  red otherwise
+
+### 2026.08.29
+- Uploads Today's "X failed" relabeled to "X retried" -- per the
+  updated api-v1.md, that number was never a failed-file count, it's
+  failed upload attempts Backblaze's own load balancing retried
+  against another vault. Now reads uploads_today.retried_attempts (the
+  same number under its honest name), falling back to .failures on an
+  older API build that doesn't have it yet
+- Failed Files (skipped_files) now shows 0 instead of n/a when the API
+  hasn't reported it, in both the collapsed and expanded views
+
+### 2026.08.28
+- Fixed "Backup Complete" never showing the total size backed up --
+  the previous build read backup.done_bytes directly, a raw byte
+  count that was never actually stored on the normalized data (only
+  the pre-formatted used_str/total_str strings the expanded Backup
+  Total field itself uses are), so the size always silently fell back
+  to being omitted. Now reads used_str, the same figure already shown
+  as the left side of Backup Total's "16.3 / 16.3 TB"
+
+### 2026.08.27
+- Files Remaining now shows the total size backed up alongside "Backup
+  Complete" (e.g. "Backup Complete - 16.3 TB"), only in that completed
+  state -- falls back to plain "Backup Complete" if the API hasn't
+  reported a size
+
+### 2026.08.21.6
+- Recent Uploads filename wrap point changed from 70 to 60 characters
+
+### 2026.08.21.5
+- Recent Uploads filename wrap point changed from 63 to 70 characters
+
+### 2026.08.21.4
+- Fixed Recent Uploads/Current File filenames shrinking to their
+  max-width box but not actually wrapping onto a second line on a
+  live Dashboard tile, spilling past the box instead -- a Dashboard
+  tile's own ancestor markup inherits white-space:nowrap for its usual
+  one-line summaries, which silently blocks wrapping regardless of
+  overflow-wrap/word-break (those only choose where a break can
+  happen; nowrap forbids breaking at all). Added an explicit
+  white-space:normal to override it. The Settings live preview never
+  showed this since its ancestor markup doesn't set nowrap
+
+### 2026.08.21.3
+- Recent Uploads filenames (both the collapsed-view list and the list
+  below the expanded columns) now wrap onto a second line once they're
+  over 63 characters, matching the wrap behavior already visible in
+  the Settings live preview -- previously they'd stay on one line on
+  the live tile whenever it was wide enough to fit them, since nothing
+  forced a break at a consistent length
+
+### 2026.08.21.2
+- Fixed the "Show Recent Uploads in Collapsed View" checkbox, count
+  dropdown, and Show Timestamps checkbox stretching to the full row
+  width instead of sizing to content -- they were sitting in a plain
+  description div instead of the flex-row container the same controls
+  use correctly in the Recent Uploads section below
+
+### 2026.08.21.1
+- "Display in collapsed view" renamed to "Show Recent Uploads in
+  Collapsed View" and given its own settings, fully independent from
+  the Recent Uploads section below: its own file count (1-5, default
+  3) and its own Show Timestamps checkbox, no longer sharing either
+  with the below-columns list
+
+### 2026.08.21
+- Added Recent Uploads: a list of recently completed uploads (1-10,
+  default 5), newest first, filenames only in the same font as Current
+  File, with an optional completion timestamp before each name. Shown
+  below the expanded columns by default; a separate checkbox can also
+  show the same list directly under Current File in the collapsed
+  view (capped at 5 there regardless of the count setting) -- both,
+  either, or neither can be on independently. Requires the API key to
+  have read:files permission, same as Current File
+- Connection tab's API key note now mentions both Read and Read:Files
+  permission
+- Updated several defaults: Failed Files and Current File now on by
+  default in Collapsed Tile Data, Uploads Today on by default in
+  Column 1, and State moved above Files Remaining in Column 2's
+  default order
+
+### 2026.08.20.1
+- Backup Total (second row) now hides once Files Remaining would read
+  "Backup Complete," instead of the progress bar lingering at a stale
+  percentage after the backup itself finished
+- Backup ETA and Upload Rate (first row) now hide whenever State reads
+  "Idle," instead of showing a stale rate or countdown next to a state
+  that says nothing is happening
+
+### 2026.08.20
+- Fixed "Current File" showing a blank progress bar and the literal
+  word "None" when backup was complete and the tile was idle -- the
+  API can leave activity.phase stuck on "Uploading" after a backup
+  finishes, but with activity.file set to a placeholder string instead
+  of clearing it. The row is now hidden whenever the reported filename
+  is a placeholder value (none/null/n-a/-), not just when the phase
+  itself looks inactive
+
+### 2026.08.19
+- Added "Current File": an optional line below Scan Progress / Backup
+  Total (Item Sorting tab, off by default) showing the name of the
+  file currently being backed up with its own small progress bar. Only
+  appears while a file is actively transferring (not just when the API
+  has a filename cached from earlier), and requires the API key to
+  have read:files permission -- without it, checking the box shows
+  nothing rather than an error, the same graceful no-op Scan Progress
+  already uses
+- Fixed the Dashboard tile's stylesheet and script URLs having no
+  cache-busting version string, unlike the Settings page's own asset
+  links -- CSS/JS fixes could reach the Settings page immediately but
+  sit stale on the Dashboard tab until a hard browser refresh
+
+### 2026.08.15.1
+- Added a "Color Theme" tab with 12 color palettes (Default, Ocean,
+  Sunset, Forest, Rose, Amber, Teal, Coral, Indigo, Lime, Steel, Plum).
+  Each theme recolors the full good/elevated/problem status
+  progression throughout the tile, not just the "good" accent, and its
+  settings cell shows a full-width legend bar demonstrating all three
+  colors at the real thresholds (bad under 34%, elevated 34-66%, good
+  from 67% up)
+- Added a "Style Theme" tab with 8 layouts for the tile's expanded
+  field list, independent of Color Theme (which only changes colors):
+  Default, Rings (circular gauges for percentage fields), Compact
+  (dense single-column list with a dotted leader line), Cards
+  (bordered stat cards with a thin accent bar), Segmented (a retro
+  block-meter bar), Spotlight (Upload Rate as a big hero stat), Minimal
+  (plain typography, no boxes or bars), and Icons (icon + label/value
+  rows with a thin inline bar). Each option previews its real renderer
+  fed with sample data
+- Updated the default field selection and order for new installs (and
+  "Reset to Defaults") to a more useful out-of-the-box layout: Last
+  Backup, Total Files, Completed Files, Failed Files, Health, and First
+  Backup are now on by default; Scan Progress and Backup Total are on
+  by default in the collapsed tile's second row; State is now off by
+  default
+
+### 2026.08.15
+- Switched the data source from scraping the container's built-in
+  /monitor/ page to its key-authenticated /api/v1/status endpoint.
+  Works whether the container's own Web Authentication is on or off,
+  and no longer depends on that page's internal markup
+- Connection tab: replaced Secure Connection with an API Key field
+  (generate one from Backblaze64's own Web UI -> API tab -> Read
+  permission). Scheme (http/https) is now detected automatically
+  instead of asked for
+- Removed the Data Points tab -- each field on the Item Sorting tab's
+  Expanded Columns now carries its own show/hide checkbox instead,
+  alongside the existing drag-to-reorder handle
+- Added eight new fields, sourced from the API and off by default:
+  Last Backup (days since), Total Files, Completed Files, Failed Files
+  (shown in red once non-zero), Health (reads "OK" in green, or the
+  first reported issue in red), Uploads Today (success/failure counts
+  for the day), First Backup (only appears while a first pass is still
+  running, in "Day X" form), and Scan Progress (only appears while a
+  file-list scan is running, with a progress bar)
+- Added Failed Files as an option for the tile's collapsed summary line
+- Item Sorting tab now notes that Scan Progress (both in Expanded
+  Columns and the second collapsed row) only appears on the tile while
+  a scan is actually running
+- Tile now reads "Please add API key to plugin settings" when no key
+  is configured, and "Error with API access, check plugin settings and
+  key access" if the API can't be reached or the key is rejected
+- Cleaned up a stray, incorrectly-named empty directory
+  (`{css,js,include}`) that had been shipping inside the package since
+  an early build
+
+### 2026.08.14
+- Fixed the live preview being unreadable (dark card background with
+  black text, and a white-on-white "Live Preview" label) -- the preview
+  markup sat outside the settings form's own theme-aware styling scope,
+  so it always used dark-mode colors regardless of the actual Unraid
+  theme, and its text color never got set to match
+
+### 2026.08.13
+- Added a "Collapsed Tile Data" section on the Item Sorting tab: choose
+  which of State, Upload Rate, Files Remaining, and Backup ETA appear on
+  the tile's collapsed summary line, and drag to set their order
+- When Files Remaining reaches 0, the collapsed summary now shows
+  "Backup Complete" in green instead of "0 files left"
+- Backup ETA on the collapsed line now reads "ETA 2d 3h" instead of
+  "Backup ETA 2d 3h", to save space -- the expanded column view is
+  unchanged
+- Added a live preview above the settings tabs, showing the actual tile
+  with real data, updating as Data Points and Item Sorting settings
+  change, before Apply
+
+### 2026.08.12
+- Renamed every shared PHP function to a plugin-specific prefix
+  (bbmon_ instead of bb_dash_), fixing a fatal "cannot redeclare
+  function" error that occurred when this plugin and the original
+  Backblaze64 Dash Monitor plugin were both installed at once, which
+  could blank the entire Dashboard page
+- Removed the unused username/password fields from Connection settings
+- Hardened the tile against unexpected/missing fields in the monitor's
+  JSON response, so a malformed response degrades to an error message
+  on the tile instead of a blank Dashboard page
+
+### 2026.08.11
+- Initial release
