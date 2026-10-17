@@ -7,12 +7,12 @@
   <Project>https://github.com/rogleete/backblaze64-unraid-dash-monitor</Project>
   <Support>https://forums.unraid.net/topic/200227-plugin-backblaze64-monitor/</Support>
   <ReadMe>https://github.com/rogleete/backblaze64-unraid-dash-monitor/blob/main/README.md</ReadMe>
-  <Overview>Dashboard tile for Backblaze64, backed by its key-authenticated API -- live speed, backup progress, and more, right on your Unraid Dashboard.</Overview>
-  <Description>Adds a native Unraid Dashboard tile for the Backblaze64 container (Backblaze Personal Backup running under Wine), backed by its key-authenticated /api/v1/status endpoint. Shows upload speed, backup progress, file counts, failures, memory usage, and connection latency without needing to open a separate browser tab.
+  <Overview>Dashboard tile for Backblaze64 and Backblaze-Personal containers, backed by its key-authenticated API -- live speed, backup progress, and more, right on your Unraid Dashboard.</Overview>
+  <Description>Adds a native Unraid Dashboard tile for the Backblaze64 and Backblaze-Personal containers (Backblaze Personal Backup running under Wine), backed by its key-authenticated /api/v1/status endpoint. Shows upload speed, backup progress, file counts, failures, memory usage, and connection latency without needing to open a separate browser tab.
 
 Auto-refreshing, collapsible to a one-line summary, with color-coded progress bars. A dedicated settings page lets you choose which fields appear and how they're arranged across the tile's two columns.
 
-Requires a running Backblaze64 container reachable from the server, and an API key generated from its own Web UI (API tab, Read permission).
+Requires a running Backblaze64 or Backblaze-Personal container reachable from the server, and an API key generated from its own Web UI (API tab).
   </Description>
   <License>GPLv3</License>
   <Screenshot>https://forumassets.unraid.net/monthly_2026_08/expanded.jpg.14bf0bfb4b724207c66c818c89d6c81a.jpg</Screenshot>
