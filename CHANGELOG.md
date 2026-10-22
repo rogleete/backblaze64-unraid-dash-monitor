@@ -1,3 +1,8 @@
+### 2026.10.22
+- Added a Threads checkbox to the collapsed tile's top-row settings,
+  right after Failed Files. When checked, the collapsed summary shows
+  "Threads: N". On by default, and draggable like the other items.
+
 ### 2026.10.14
 - Added file size check boxes to display file size of recently uploaded files
 
