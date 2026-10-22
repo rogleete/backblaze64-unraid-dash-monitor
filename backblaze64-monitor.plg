@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.10.14">
+<!ENTITY version     "2026.10.22">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,11 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Added a Threads checkbox to the collapsed tile's top-row settings,
+  right after Failed Files. When checked, the collapsed summary shows
+  "Threads: N". On by default, and draggable like the other items.
+
+### 2026.10.14
 - Health is now checked by default in the collapsed tile's second-row
   section (new installs, or any install that has never saved that
   setting). Show Recent Uploads in Collapsed View is also on by
@@ -405,7 +410,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>1cac9ac8261cfbbc1fa430e05b99b0e39056f3a61ad2fa8e907c81821e34a420</SHA256>
+<SHA256>f727aa44dc8629ac1e7b20a091b41fcc93bab843f2cb55d87e8af273fec83c53</SHA256>
 </FILE>
 
 <!--
