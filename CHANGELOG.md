@@ -1,3 +1,9 @@
+### 2026.10.29
+- Added a unit dropdown to the Upload Rate item in the collapsed tile
+  settings. Choose MB/s (default, e.g. "24.6 MB/s") or Mb/s (e.g.
+  "196.8 Mb/s", megabits per second). Applies to the collapsed summary
+  only; the expanded view is unchanged.
+
 ### 2026.10.22
 - Added a Threads checkbox to the collapsed tile's top-row settings,
   right after Failed Files. When checked, the collapsed summary shows

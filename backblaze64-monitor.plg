@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name        "backblaze64-monitor">
 <!ENTITY author      "rogman">
-<!ENTITY version     "2026.10.22">
+<!ENTITY version     "2026.10.29">
 <!ENTITY launch      "Utilities/backblaze64-monitor">
 <!ENTITY github      "rogleete/backblaze64-unraid-dash-monitor">
 <!ENTITY pluginURL   "https://raw.githubusercontent.com/&github;/main/backblaze64-monitor.plg">
@@ -44,6 +44,12 @@ Dashboard tile for Backblaze64, backed by its key-authenticated /api/v1/status A
 
 <CHANGES>
 ### &version;
+- Added a unit dropdown to the Upload Rate item in the collapsed tile
+  settings. Choose MB/s (default, e.g. "24.6 MB/s") or Mb/s (e.g.
+  "196.8 Mb/s", megabits per second). Applies to the collapsed summary
+  only; the expanded view is unchanged.
+
+### 2026.10.22
 - Added a Threads checkbox to the collapsed tile's top-row settings,
   right after Failed Files. When checked, the collapsed summary shows
   "Threads: N". On by default, and draggable like the other items.
@@ -410,7 +416,7 @@ PACKAGE INSTALLATION
 -->
 <FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
 <URL>&packageURL;</URL>
-<SHA256>f727aa44dc8629ac1e7b20a091b41fcc93bab843f2cb55d87e8af273fec83c53</SHA256>
+<SHA256>8960ab91993873ea6a1623e4bedf1d9f4fe08eb99fcfa16268a8e3ec26f73efe</SHA256>
 </FILE>
 
 <!--
